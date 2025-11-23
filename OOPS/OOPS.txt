@@ -1,0 +1,120 @@
+ACCESS MODIFIERS
+1) private: data & methods accessible inside class
+(In C++, by default or implicit access modifier is private)
+
+2) public: data & methods accessible to everyone
+
+3) protected: data & methods accessible inside class & to its derived class
+
+
+
+
+
+ENCAPSULATION: 
+Encapsulation is wrapping of data & member functions in a single unit called class.
+
+
+
+
+
+
+CONSTRUCTOR:
+Special method invoked automatically at time of object craetion. Used for Initialisation.
+Properties -
+-> Same name as class
+-> Constructor doesn't have a return type(not even void).
+-> Only called once (automatically), at object creation.
+-> Memory allocation happens when constructor is called.
+-> Constructor if declared explicitly should be declared only as public as it goes call from main function.
+
+3 types of Constructors
+1) Non-Parameterised
+2) Parameterised
+3) Copy Constructor
+
+-> We can declare even two or more constructors, but two non-parameterised should'nt be declared or in parameterised, atleast those should be different in atleast one way like in no. of parameters of if no. of parameters are same then atleast one of the datatype of parameter should be different. 
+This is known as constructor overloading, it is a part of polymorphism.
+
+
+
+
+
+this POINTER:
+'this' is a special pointer in C++ that points to the current object.
+For example, for our object1 we are calling it's function1(). If that function requires to refer the properties of object1 then it can do it by writing the properties in two ways.
+1) prop (one of the object1 property)
+2) this -> prop
+The second will be mainly useful, when the property and parameter of the function have same name. (Once refer 2_4.cpp)
+
+-> Whenever an object is created(suppose created at memory address starting at "100"), this automatically refers to that memory address i.e., "this" is a variable stores the address(here it is 100) ["this" is an automatically created pointer, which points to calling object(in 2_4.cpp, calling object is "t1")]
+in C++, for example :
+int x = 10;
+int *ptr = &x;
+Here, if we now write *ptr ('*' is dereferencing operator) so, *ptr now gives us value in x i.e., 10
+so, now when we write '*this' that means we are talking about "obj", when we want "obj.prop" we have to write '(*this).prop', instead we can simply use 'this -> prop'.
+
+
+
+
+
+Copy CONSTRUCTOR:
+Special Constructor (default) used to copy properties of one object into another.
+-> When we explicitly don't make a copy constructor, C++ by default makes one. Suppse even when we don't write any constructor as such which takes another object as parameter, the code works fine. Because C++ default copy constructor invokes. (Refer 2_5.cpp)
+
+
+
+
+
+SHALLOW & DEEP COPY:
+Whenever copies of an object are created, there are basically two types of copies that can be made in C++.
+
+-> A "shallow" copy of an object copies all of the member values from one object to another.
+-> Here, the issue comes only when dynamic memory allocation(i.e., when we use 'new' keyword, or pointers, etc.,).
+
+
+
+
+INHERITANCE:
+When properties & member functions of base(parent) class are passed on to the derived(child) class.
+
+-> Inheritance is used for code resuability.
+-> Whenever we create a child class object, first base class constructor is called.
+-> But in destructors, first child class memory will be deallocated, after that parent memory will be deallocated.
+
+
+
+
+
+POLYMORPHISM:
+Polymorphism is the ability of objects to take on different forms or behave in different ways depending on the context in which they are used.
+
+1) Compile Time(static) Polymorphism : 
+-> Constructor Overloading, i.e., constructor names are same but parameters are different.
+-> Function Overloading, i.e., in same class two or more functions having same function names but different no. of parameters or different types of parameters
+2) Run Time Polymorphism :
+-> Function Overriding, i.e., parent & child both contain the same function with different implementation. The parent class function is said to be overridden.
+-> Virtual Functions: A virtual function is a mmeber function that you expect to be redefined in derived classes.
+    1) Virtual functions are Dynamic in nature.
+    2) Defined by the keyword "virtual" inside a base class and are always declared with a base class and overridden in a child class.
+    3) A virtual function is called during Runtime.
+
+
+
+
+
+ABSTRACTION:
+Hiding all unnecessary details & showing only the important parts
+-> "access modifiers" or "access specifiers" are a of way of implementing abstraction.
+-> Another way is by using using "Abstract" classes.
+    -> different objects will be created using our normal classes. class becomes a blueprint
+    -> An abstract class is only used for inheritance, no objects will be created using it. It says how other classes(classes which inherit that abstract class) should be. So, abstract class is like a blueprint for other classes that are going implement it.
+
+
+
+
+
+STATIC KEYWORD:
+1) Static Variables: 
+-> Variables declared as static in a function are created & initialised once for the lieftime of the program. 
+-> Static variables in a class are created & initialized once. They are shared by all the objects of the class.
+2) Static Objects:
