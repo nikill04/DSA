@@ -46,4 +46,35 @@ Constraints:
 
 
 
-
+/* 
+Here, Longest repeating subsequence is exactly same as Longest common subsequence, just here we take another string same as the first string, and as here we need to find longest common subsequence (as we need not consider the subsequence which is repeating most no. of times, we should just consider the longest one, just even enough it repeats for 2 times, that's it is same as LCS) such that the considered common character should not be exactly same i.e., index of the same character in both the strings should be different, remaining logic is exactly same that's why we just add "&& i != j" 
+*/
+class Solution {
+  public:
+    int LongestRepeatingSubsequence(string &s) {
+        // Code here
+        
+        return helper(s);
+    }
+    
+    int helper(string & s1) {
+        string s2 = s1;
+        
+        int n = s1.size();
+        
+        vector<vector<int>> mat(n + 1, vector<int>(n + 1, 0));
+        
+        for(int i = 1; i <= n; i++) {
+            for(int j = 1; j <= n; j++) {
+                if(s1[i - 1] == s2[j - 1] && i != j) {
+                    mat[i][j] = 1 + mat[i - 1][j - 1];
+                } 
+                else {
+                    mat[i][j] = max(mat[i - 1][j], mat[i][j - 1]);
+                }
+            }
+        }
+        
+        return mat[n][n];
+    }
+};
