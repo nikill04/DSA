@@ -48,4 +48,4 @@ class Solution {
 
         return mat[n][n];
     }
-};  
+};                                                

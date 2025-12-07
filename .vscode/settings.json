@@ -6,5 +6,10 @@
         "deque": "cpp",
         "initializer_list": "cpp",
         "xutility": "cpp"
-    }
+    },
+    "editor.parameterHints.enabled": false,
+    "C_Cpp.inlayHints.parameterNames.hideLeadingUnderscores": true,
+    "C_Cpp.inlayHints.parameterNames.suppressWhenArgumentContainsName": true,
+    "C_Cpp.inlayHints.parameterNames.enabled": true,
+    "C_Cpp.inlayHints.referenceOperator.enabled": true
 }

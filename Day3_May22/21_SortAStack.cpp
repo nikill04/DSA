@@ -58,7 +58,7 @@ class Solution {
 public:
     void Solve(vector<int> &nums,int t)
     {
-        if(nums.size()==0||t>=nums[nums.size()-1])
+        if(nums.size()==0||t >= nums[nums.size()-1])
         {
             nums.push_back(t);
             return;

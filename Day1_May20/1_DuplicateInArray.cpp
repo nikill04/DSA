@@ -76,6 +76,11 @@ int main() {
     return 0;
 }
 
+/* How to run : 
+1) g++ 1_DuplicateInArray.cpp -o your_executable_name
+2) ./your_executable_name           */
+
+
 /*
 
 You have:
