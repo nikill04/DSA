@@ -29,7 +29,7 @@ s consists only of lowercase English letters.                               */
 
 class Solution {
 public:
-    // Palindrome means starting should be same as end. So, if we LCS of a string and it's reverse string we can find longest palindrome
+    // Palindrome means starting should be same as end. So, if we find LCS of, a string and it's reverse string we can find longest palindrome
     int longestPalindromeSubseq(string s) {
         return LCS(s);
     }
