@@ -41,3 +41,44 @@ For the same graph, the adjacency list will be
 2 => {1, 4, 3}
 3 => {1, 2, 4}
 4 => {2, 3}
+
+If given edges, let's see the code to convert into adjacency matrix and adjacency list
+
+// For adjacency matrix.
+int main() {
+    vector<vector<int>> edgeList = {{1, 2}, {2, 3}, {3, 4}, {4, 2}, {1, 3}}; // GIVEN. and also let it a undirected graph.
+    // Here, 4 is max no., let's say it is maxi
+
+    vector<vector<int>> adjacencyMatrix(maxi + 1, vector<int>(maxi + 1, 0));
+
+    for(int i = 0; i < edgeList.size(); i++) {
+        int a = edgeList[i][0];
+        int b = edgeList[i][1];
+
+        adjacencyMatrix[a][b] = 1;
+        adjacencyMatrix[b][a] = 1;
+    }
+}
+
+// For adjacency List.
+int main() {
+    vector<vector<int>> edgeList = {{1, 2}, {2, 3}, {3, 4}, {4, 2}, {1, 3}}; // GIVEN.
+
+    unordered_map<int, vector<int>> graph;
+
+    for(int i = 0; i < edgeList.size(); i++) {
+        int a = edgeList[i][0];
+        int b = edgeList[i][1];
+
+        graph[a].push_back(b);
+        graph[b].push_back(a);   // As undirected graph.
+    }
+}
+
+
+
+GRAPH TRAVERSAL :
+1) BFS(BREADTH FIRST SEARCH) : 
+2) DFS(DEPTH FIRST SEARCH) : 
+
+ 
