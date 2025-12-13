@@ -62,25 +62,48 @@ class Solution {
         //     traversed[u] = 1;
         // }
         
-        while(!st.empty()) {
-            int u = st.top();
-            st.pop();
+        
+        // APPROACH 1
+        // DFS stack-based approach(non-recursive)
+        // while(!st.empty()) {
+        //     int u = st.top();
+        //     st.pop();
             
-            if(traversed[u] != 1) {
-                graph.push_back(u);
+        //     if(traversed[u] != 1) {
+        //         graph.push_back(u);
             
-                for(int i = adj[u].size() - 1; i >= 0; i--) {
-                    int neighbor = adj[u][i];
+        //         for(int i = adj[u].size() - 1; i >= 0; i--) {
+        //             int neighbor = adj[u][i];
                     
-                    if(traversed[neighbor] != 1) {
-                        st.push(neighbor);
-                    }
-                }
+        //             if(traversed[neighbor] != 1) {
+        //                 st.push(neighbor);
+        //             }
+        //         }
                 
-                traversed[u] = 1;
+        //         traversed[u] = 1;
+        //     }
+        // }
+        
+        // return graph;
+        
+        
+        
+        // Approach 2
+        dfs(adj, graph, traversed, 0);
+        return graph;
+    }
+    
+    
+    void dfs(vector<vector<int>> & adj, vector<int> & graph, vector<int> & traversed, int node) {
+        graph.push_back(node);
+        traversed[node] = 1;
+        
+        for(int i = 0; i < adj[node].size(); i++) {
+            if(traversed[adj[node][i]] != 1) {
+                dfs(adj, graph, traversed, adj[node][i]);
             }
         }
         
-        return graph;
-    }
+        return;
+    }  
 };

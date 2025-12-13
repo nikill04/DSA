@@ -39,3 +39,44 @@ There are no self edges.                      */
 
 
 
+class Solution {
+public:
+    bool validPath(int n, vector<vector<int>>& edges, int source, int destination) {
+        if(source == destination) return true;
+
+        unordered_map<int, vector<int>> graph;
+
+        for(int i = 0; i < edges.size(); i++) {
+            int a = edges[i][0];
+            int b = edges[i][1];
+
+            graph[a].push_back(b);
+            graph[b].push_back(a);
+        }
+        // We created adjacency list
+
+
+        // Now, we can do this problem even by BFS or DFS
+        vector<int> traversed(n, -1);
+
+        queue<int> q;
+        q.push(source);
+        traversed[source] = 1;
+
+        while(!q.empty()) {
+            int u = q.front();
+            q.pop();
+
+            for(auto num : graph[u]) {
+                if(traversed[num] != 1) {
+                    q.push(num);
+                    traversed[num] =  1;
+                }
+            }
+            if(traversed[destination] == 1) return true;
+
+        }
+        
+        return false;
+    }
+};
