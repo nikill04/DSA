@@ -75,7 +75,7 @@ class Solution {
             //     }
                 
             // }
-            // Even this above commented code is correct, but it is not optimal and gives TIME LIMIT EXCEEDED.
+            // Even this above commented code is correct, but it is not optimal and gives TIME LIMIT EXCEEDED. Also try to avoid using the find function in your code approaches as it is a costly one and takes O(n) time. If required Keep the logic same but don't use find function.
             
 
             if (!visited[nghbr]) {
