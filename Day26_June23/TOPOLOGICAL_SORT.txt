@@ -1,0 +1,14 @@
+TOPOLOGICAL SORTING :
+
+Topological sorting is a linear ordering of vertices of a graph such that: 
+If there is an edge u → v, then u comes before v in the order.
+
+Where it applies : Only for a Directed Acyclic Graph (DAG) 
+If a cycle exists → topological order is impossible(Because ordering which one's first is not possible, same problem with undirected graphs).
+
+Why it’s used : To handle dependencies, for example:
+1. Course prerequisites
+2. Build/compile order
+3. Task scheduling
+
+Key idea (in one line) : Do tasks only after all tasks they depend on are done.
