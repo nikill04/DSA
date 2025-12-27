@@ -39,3 +39,64 @@ grid[i][j] is 0, 1, or 2.                   */
 
 
 
+
+class Solution {
+public:
+    int orangesRotting(vector<vector<int>>& grid) {
+        int m = grid.size();
+        int n = grid[0].size();
+
+        // vector<vector<bool>> visited(m, vector<bool>(n, false));
+
+        queue<pair<int, int>> q;
+
+        int noOfFresh = 0;
+
+        for(int i = 0; i < m; i++) { 
+            for(int j = 0; j < n; j++) {
+                if(grid[i][j] == 2) {
+                    q.push({i, j});
+                }
+                else if(grid[i][j] == 1) {
+                    noOfFresh++;
+                }
+            }
+        }
+
+        if(noOfFresh == 0) return 0;
+
+        int time = 0;
+
+        while(!q.empty()) {
+            int N = q.size();
+
+            int xTrav[] = {0, 0, -1, 1};
+            int yTrav[] = {-1, 1, 0, 0};
+
+            while(N--) {
+                int x = q.front().first;
+                int y = q.front().second;
+
+                for(int k = 0; k < 4; k++) {
+                    int newX = x + xTrav[k];
+                    int newY = y + yTrav[k];
+
+                    if(newX < 0 || newY < 0 || newX >= m || newY >= n || grid[newX][newY] == 2 || grid[newX][newY] == 0) {
+                        continue;
+                    }
+
+                    noOfFresh--;
+                    grid[newX][newY] = 2;
+                    q.push({newX, newY});
+                }
+
+                q.pop();
+            }
+
+            time++;
+        }
+
+        if(noOfFresh == 0) return time - 1;
+        return -1;
+    }
+};
