@@ -43,3 +43,129 @@ Note: This question is the same as 1123: https://leetcode.com/problems/lowest-co
 
 
 
+    // /**
+    // * Definition for a binary tree node.
+    // * struct TreeNode {
+    // *     int val;
+    // *     TreeNode *left;
+    // *     TreeNode *right;
+    // *     TreeNode() : val(0), left(nullptr), right(nullptr) {}
+    // *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+    // *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+    // * };
+    // */
+    class Solution {
+    public:
+        TreeNode* subtreeWithAllDeepest(TreeNode* root) {
+            
+            return dfs(root).second;
+
+            // if(!root) return NULL;
+            // if(!(root -> right || root -> left)) return root;
+
+            // vector<TreeNode*> vec;
+            // queue<TreeNode*> q;
+
+            // q.push(root);
+
+            // while(true) {
+            //     int n = q.size();
+            //     int n2 = n;
+                
+            //     int count = 0;
+            //     while(n--) {
+            //         TreeNode* node = q.front();
+            //         q.pop();
+            //         vec.push_back(node);
+
+            //         if(!node) {
+            //             count++;
+            //             q.push(NULL);
+            //             q.push(NULL);
+            //         }
+            //         else{
+            //             q.push(node -> left);
+            //             q.push(node -> right);
+            //         }
+            //     }
+
+            //     if(count == n2) break;
+            // }
+
+            // int N = vec.size();
+            // int noLev = log2(N + 1); // no. of actual levels + one level with all the NULL nodes
+
+            // int start = vec.size() - (int)pow(2, noLev - 1);
+
+            // vec.erase(vec.begin() + start, vec.end());
+
+            // noLev--;
+
+            // start = vec.size() - (int)pow(2, noLev - 1);
+
+            // int onlyOne = 0;
+            // TreeNode* node;
+            // for(int i = start; i < vec.size(); i++) {
+            //     if(vec[i] != NULL) {
+            //         onlyOne++;
+            //         node = vec[i];
+            //     }
+            // }
+            // if(onlyOne == 1) return node;
+            
+
+            // unordered_map<TreeNode*, pair<int, int>> mp;
+
+            // for(int i = start; i < vec.size(); i++) {
+            //     if(vec[i] != NULL) {
+            //         int parent = (i - 1) / 2;
+            //         int lev = noLev - 2;
+
+            //         for(int j = parent; j >= 0; ) {
+
+            //             mp[vec[j]].first = lev;
+            //             mp[vec[j]].second++;
+            //             j = (j - 1) / 2;
+            //             lev--;
+            //         }
+            //     }
+            // }
+
+            // pair<pair<int, int>, TreeNode*> ans = {{INT_MIN, INT_MIN}, NULL};
+
+            // for(auto i : mp) {
+            //     if((i.second.second > ans.first.second) || 
+            //     (i.second.second == ans.first.second && i.second.first > ans.first.first)) {
+            //         ans.first.first = i.second.first;
+            //         ans.first.second = i.second.second;
+            //         ans.second = i.first;
+            //     }
+            // } 
+
+            // return ans.second;
+        }
+
+        pair<int, TreeNode*> dfs(TreeNode* root) {  // int => gives the maximum depth of the node's(root) subtree. TreeNode* => gives the deepest node subtree's root.
+            if(!root) {
+                return {0, NULL};
+            }
+
+            pair<int, TreeNode*> left = dfs(root -> left);
+            pair<int, TreeNode*> right = dfs(root -> right);
+
+            /*  Scenario A: Both sides are equally deep.
+                This means the deepest nodes are split across both sides.
+                So, *ROOT* is the lowest node that connects them.                    */
+            if(left.first == right.first) {
+                return {left.first + 1, root};
+            }
+            /*  Scenario B: Left side is deeper.
+                The answer is already inside the left branch. Just pass it up.        */
+            else if(left.first > right.first) {
+                return {left.first + 1, left.second};
+            }
+            else {
+                return {right.first + 1, right.second};
+            }
+        }
+    };
