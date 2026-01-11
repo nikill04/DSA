@@ -60,6 +60,10 @@ Note: This question is the same as 1123: https://leetcode.com/problems/lowest-co
             
             return dfs(root).second;
 
+
+
+
+            // The below is very memory inefficient and time consuming approach. But if you want once check.
             // if(!root) return NULL;
             // if(!(root -> right || root -> left)) return root;
 
