@@ -30,7 +30,8 @@ class Solution {
         // code here
         if(arr.size() < 3) return 0;
         
-        int matrixStartInd = 1; // We won't start at 0, because if we start at 0, i - 1 is -1, and -1 x 0 is an invalid matrix.
+        // We will have arr.size() - 1 matrices, as we can't start from index 0. Because we if start from index 0, that matrix dimensions will be arr[0 - 1] x arr[0] i.e., arr[-1] x arr[0] which is not defined. So, our first matrix will start from index 1 of arr[].
+        int matrixStartInd = 1; 
         int matrixEndInd = arr.size() - 1;
         vector<vector<int>> memorization(arr.size(), vector<int>(arr.size(), -1));
         
@@ -50,7 +51,7 @@ class Solution {
                 int subProblemA = helper(arr, startInd, k, memorization);
                 int subProblemB = helper(arr, k + 1, endInd, memorization);
                 
-                int multiplySubASubB = arr[startInd - 1] * arr[k] * arr[endInd]; // Whenever we multiply two matrices of (m x n) and (n x t), the resultant matrix will be (m x t). And if we you observe here, (m x n x t) will takes place.
+                int multiplySubASubB = arr[startInd - 1] * arr[k] * arr[endInd]; // Whenever we multiply two matrices of (m x n) and (n x t), the resultant matrix will be (m x t). And if we you observe here, (m x n x t) multiplications will takes place.
                 // Here above multiply is nothing but, no. of multiplication operations when multiplying subProblemA and subProblemB matrices.
                 
                 int multiply = subProblemA + subProblemB + multiplySubASubB;
