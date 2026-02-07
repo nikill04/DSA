@@ -109,11 +109,11 @@ Node* sortList(Node *head){
     one_tail -> next = two_head -> next;
     two_tail -> next = NULL;
 
-    Node* newHead = zero_head -> next;
+    head = zero_head -> next;
 
     delete zero_head;
     delete one_head;
     delete two_head;
 
-    return newHead;
+    return head;
 }

@@ -39,7 +39,7 @@ void Print(Node * head) {
     if(head == NULL) return;
     Node * temp = head;
     while(temp != NULL) {
-        cout << tmep -> data;
+        cout << temp -> data << " ";
         temp = temp ->next;
     }
 }

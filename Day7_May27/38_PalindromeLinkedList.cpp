@@ -53,16 +53,15 @@ class Solution {
             if(head -> data == secondList -> data) {
                 head = head -> next;
                 secondList = secondList -> next;
-            } else break;
+            } else return false;
         }
-        if(secondList == NULL) return true;
-        else return false;
+        return true;
     }
     
     Node* reverse(Node * head) {
         if(head == NULL || head -> next == NULL) return head;
         Node* temp = head -> next; 
-        Node* newHead = reverse(head -> next);
+        Node* newHead = reverse(temp);
         temp -> next = head;
         head -> next = NULL;
         return newHead;

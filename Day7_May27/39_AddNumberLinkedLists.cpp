@@ -62,30 +62,24 @@ class Solution {
         int sum;
         while(num1 != NULL && num2 != NULL) {
             sum = num1 -> data + num2 -> data + carry;
-            carry = sum % 10;
-            newTail -> next = new Node(carry);
+            newTail -> next = new Node(sum % 10);
             newTail = newTail -> next;
             carry = sum / 10;
             num1 = num1 -> next;
             num2 = num2 -> next;
         }
-        if(num1 == NULL && num2 != NULL) {
+
+        if(num1 || num2) { // i.e., if(num1 != NULL || num2 != NULL)
             while(num2 != NULL) {
                 sum = carry + num2 -> data;
-                carry = sum % 10;
-                newTail -> next = new Node(carry);
+                newTail -> next = new Node(sum % 10);
                 newTail = newTail -> next;
                 carry = sum / 10;
                 num2 = num2 -> next;
             }
-            if(carry != 0) {
-                newTail -> next = new Node(carry);
-            }
-        } else if(num1 != NULL && num2 == NULL) {
             while(num1 != NULL) {
                 sum = carry + num1 -> data;
-                carry = sum % 10;
-                newTail -> next = new Node(carry);
+                newTail -> next = new Node(sum % 10);
                 newTail = newTail -> next;
                 carry = sum / 10;
                 num1 = num1 -> next;

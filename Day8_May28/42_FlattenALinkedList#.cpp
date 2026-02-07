@@ -138,4 +138,3 @@ Node* flattenLinkedList(Node* head) {
 
 	return head;
 }
-

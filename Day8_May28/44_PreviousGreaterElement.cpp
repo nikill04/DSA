@@ -14,3 +14,38 @@ Output :        -1, -1, -1, -1
 
 Input : arr[] = {40, 30, 20, 10}
 Output :        -1, 40, 30, 20      */
+
+
+
+
+class Solution {
+  public:
+    vector<int> preGreaterEle(vector<int>& arr) {
+        int n = arr.size();
+  
+        // initialize all PGEs as -1
+        vector<int> result(n, -1); 
+        
+        // stack to keep track of elements
+        stack<int> st; 
+
+        // traverse the array from left to right
+        for (int i = 0; i < n; i++) {
+            
+            // pop elements from stack which are <= current element
+            while (!st.empty() && st.top() <= arr[i]) {
+                st.pop();
+            }
+
+            // if stack is not empty, top element is PGE
+            if (!st.empty()) {
+                result[i] = st.top();
+            }
+
+            // push current element onto stack
+            st.push(arr[i]);
+        }
+
+        return result;
+    }
+};

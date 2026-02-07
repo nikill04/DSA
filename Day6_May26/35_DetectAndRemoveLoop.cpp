@@ -70,7 +70,7 @@ Node *removeLoop(Node *head)
     // do {
     //     slow = slow -> next;
     //     fast = fast -> next -> next;
-    // } while(!(fast == NULL || fast -> next == NULL) && fast != slow && !(fast == head || fast -> next == head));
+    // } while(!(fast == NULL || fast -> next == NULL) && fast != slow);
     // // Remeber null checks are very important and should be done in first and should be done in an order. Here !(fast -> next == NULL || fast == NULL) gives an error. this whole bracket should be at the first and also in the bracket it should be in that order only.
 
 
@@ -206,4 +206,98 @@ t=3: Slow = D, Fast = B (E -> A -> B).
 t=4: Slow = E, Fast = D (B -> C -> D).
 t=5: Slow = A (E -> A), Fast = A (D -> E -> A).
 They meet at A at t=5, the cycle length.*/
+
+
+
+/* 
+## First: what do these symbols actually mean?
+
+We are talking about **one specific situation** after slow & fast have *already met once*.
+
+head ----(k nodes)----> LOOP_START ----(x nodes)----> MEETING_POINT
+                                 ^                       |
+                                 |------ rest of loop ---|
+
+### Definitions
+* `k` = number of nodes **before** the loop starts
+* `L` = total number of nodes **in the loop**
+* `x` = number of nodes **from loop start to meeting point**
+
+So: `0 ≤ x < L`
+
+## Step 1: Why do we get `k + x = n × L`?
+At the **first meeting**:
+* slow has traveled: k + x
+* fast has traveled twice that: 2(k + x)
+
+Because fast catches up by doing **full loop laps**, the *extra distance* must be whole loops:
+2(k + x) − (k + x) = n × L
+⇒ k + x = n × L
+
+## Step 2: What does “mod L” mean here?
+Inside a loop:
+* Moving `L` steps brings you back to the **same node**
+* So distances are considered **modulo L**
+
+Think of the loop like a **clock**:
+* 12 ≡ 0 (mod 12)
+* 13 ≡ 1 (mod 12)
+Same idea.
+
+
+## Step 3: Convert the equation carefully
+
+From: k + x = n × L
+
+Take modulo `L` on both sides:
+=> (k + x) mod L = 0
+=> k + x ≡ 0 (mod L)
+
+Now isolate `k`:    => k ≡ −x (mod L)
+
+## Step 4: Why does −x become (L − x)?
+In modulo arithmetic:
+```
+−x ≡ L − x   (mod L)
+```
+
+Why? Because:  −x + L = L − x
+And adding `L` does **not change position in a loop**.
+
+So we rewrite:   => k ≡ L − x (mod L)        📌 **This is the KEY statement**
+
+
+## Step 5: Now translate math → physical distance
+After the first meeting:
+
+### Where is `fast`?
+* `fast` is at the meeting point
+* Distance **forward** to loop start = `L − x`
+
+### Where is `slow` after reset?
+slow = head;
+
+* Distance from head to loop start = `k`
+But we proved:
+k ≡ L − x (mod L)
+👉 **They are the SAME number of steps away from the loop start**
+
+
+## Step 6: Why moving one step guarantees meeting at loop start
+Now we do:
+slow = slow->next;
+fast = fast->next;
+
+Both move **1 step at a time**.
+Since:
+* slow is `k` steps away
+* fast is `L − x` steps away
+* and `k = L − x`
+
+⏱️ After exactly `k` moves:
+slow → LOOP_START
+fast → LOOP_START
+
+They **must** meet there.
+*/
 }
