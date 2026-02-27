@@ -79,7 +79,7 @@ class Solution {
             vec.pop_back();        
         }
         
-        int sumK(Node *root, int k) {
+        int countAllPaths(Node *root, int k) {
             // code here
             // Helper1(root, k);
             

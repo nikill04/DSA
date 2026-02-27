@@ -51,8 +51,8 @@ Merging all this traversals in single array we get {5,9,1,3,2,8,4}.             
 
 
 
-/*Structure of the node of the binary tree is as
-struct Node {
+/*
+class Node {
     int data;
     Node *left;
     Node *right;
@@ -63,52 +63,106 @@ struct Node {
     }
 };
 */
-
 class Solution {
   public:
-    // Function to store the zig zag order traversal of tree in a list.
     vector<int> zigZagTraversal(Node* root) {
-        // Code here
-        vector<int> vec;
+        // code here
+        // vector<int> vec;
+        
+        // helper(root, vec);
+        
+        // return vec;
+        
+        
+        vector<int> vec1;
+        helper1(root, vec1);
+        return vec1;
+        
+    }
+    
+    void helper1(Node * root, vector<int> & vec) {
         deque<Node*> dq;
-        int count = 0;
         
         dq.push_front(root);
-        count++;
-        vec.push_back(root -> data);
+        
+        bool oddRow = true;
         
         while(!dq.empty()) {
             int N = dq.size();
-            while(N) {
-                Node* temp;
-                if(count % 2 == 1) {
-                    temp = dq[--N];
-                    dq.erase(dq.begin() + N);
+            
+            if(oddRow) {
+                while(N--) {
+                    Node* node = dq.back();
+                    dq.pop_back();
                     
-                    if(temp -> right) {
-                        dq.push_back(temp -> right);
-                        vec.push_back(temp -> right -> data);
-                    }
-                    if(temp -> left) {
-                        dq.push_back(temp -> left);
-                        vec.push_back(temp -> left -> data);
-                    }
-                } else {
-                    temp = dq[--N];
-                    dq.erase(dq.begin() + N);
+                    vec.push_back(node -> data);
                     
-                    if(temp -> left) {
-                        dq.push_back(temp -> left);
-                        vec.push_back(temp -> left -> data);
-                    }
-                    if(temp -> right) {
-                        dq.push_back(temp -> right);
-                        vec.push_back(temp -> right -> data);
-                    }
+                    if(node -> left) dq.push_front(node -> left);
+                    if(node -> right) dq.push_front(node -> right);
                 }
             }
-            count++;
+            else {
+                while(N--) {
+                    Node* node = dq.front();
+                    dq.pop_front();
+                    vec.push_back(node -> data);
+                    
+                    if(node -> right) dq.push_back(node -> right);
+                    if(node -> left) dq.push_back(node -> left);
+                }
+            }
+            
+            oddRow = !oddRow;
         }
-        return vec;
+        
+        return;
     }
+    
+    // void helper(Node* root, vector<int> & vec) {
+    //     bool oddRow = true;
+        
+    //     deque<Node*> dq;
+    //     dq.push_back(root);
+        
+    //     vec.push_back(root -> data);
+        
+    //     while(!dq.empty()) {
+    //         int N = dq.size();
+            
+    //         if(oddRow) {
+    //             while(N--) {
+    //                 Node* node = dq[N];
+    //                 dq.erase(dq.begin() + N);
+                    
+    //                 if(node -> right) {
+    //                     dq.push_back(node -> right);
+    //                     vec.push_back(node -> right -> data);
+    //                 }
+    //                 if(node -> left) {
+    //                     dq.push_back(node -> left);
+    //                     vec.push_back(node -> left -> data);
+    //                 }
+    //             } 
+    //         }
+    //         else {
+    //             while(N--) {
+    //                 Node * node = dq[N];
+    //                 dq.erase(dq.begin() + N);
+                    
+    //                 if(node -> left) {
+    //                     dq.push_back(node -> left);
+    //                     vec.push_back(node -> left -> data);
+    //                 }
+    //                 if(node -> right) {
+    //                     dq.push_back(node -> right);
+    //                     vec.push_back(node -> right -> data);
+    //                 }
+    //             }
+    //         }
+            
+    //         oddRow = !oddRow;
+    //     }
+        
+    //     return;
+    // }
 };

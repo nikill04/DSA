@@ -62,18 +62,20 @@ class Solution {
                 pair<Node*, int> a = q.front();
                 q.pop();
                 
-                if(a.first -> right) {
-                    q.push({a.first -> right, a.second + 1});
-                    if(mp.find(a.second + 1) == mp.end()) {
-                        mp[a.second + 1] = a.first -> right -> data;
-                    }
-                }
                 if(a.first -> left) {
                     q.push({a.first -> left, a.second + 1});
                     if(mp.find(a.second + 1) == mp.end()) {
                         mp[a.second + 1] = a.first -> left -> data;
                     } 
                 }
+                
+                if(a.first -> right) {
+                    q.push({a.first -> right, a.second + 1});
+                    if(mp.find(a.second + 1) == mp.end()) {
+                        mp[a.second + 1] = a.first -> right -> data;
+                    }
+                }
+
             }
         }
         

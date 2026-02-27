@@ -46,41 +46,69 @@ class Node {
 
 class Solution {
   public:
-    int max = 0;
-    int count = 0;
-    
-    void maxSum(Node* root, int sum, int count1) {
-        if(root == NULL) return;
-        
-        sum += root -> data;
-        
-        
-        /* 
-        if(count1 >= count && sum > max) {
-            count = count1;
-            max = sum;
-        }
-        We should not like this because, consider right now count is 3 and sum = 15, but now you found count1 = 4 but sum = 12, in that case sum should be updated to new value but as per the if conition, it doesn't enter the if.
-        */
-        if(!root -> left && !root -> right) {
-            if(count1 > count || (count1 == count && sum > max)) {
-                count = count1;
-                max = sum;
-            }
-            return // not mandatory.
-        }
-        
-        // count1 += 1; 
-        
-        if(root -> left) maxSum(root -> left, sum, count1 + 1);
-        if(root -> right) maxSum(root -> right, sum, count1 + 1);
-        
-        return;
-    }
-    
     int sumOfLongRootToLeafPath(Node *root) {
         // code here
-        maxSum(root, 0, 1);
-        return max;
+        return helper(root).second;
+    }
+    
+    pair<int, int> helper(Node* root) {
+        if(!root) return {-1, 0};
+        
+        pair<int, int> left = helper(root -> left);
+        pair<int, int> right = helper(root -> right);
+        
+        int sum;
+        if(left.first == right.first) sum = max(left.second, right.second);
+        else {
+            if(left.first > right.first) sum = left.second;
+            else sum = right.second;
+        }
+        
+        return {max(left.first, right.first) + 1, sum + root -> data};
     }
 };
+
+
+
+
+
+// class Solution {
+//   public:
+//     int max = 0;
+//     int count = 0;
+    
+//     void maxSum(Node* root, int sum, int count1) {
+//         if(root == NULL) return;
+        
+//         sum += root -> data;
+        
+        
+//         /* 
+//         if(count1 >= count && sum > max) {
+//             count = count1;
+//             max = sum;
+//         }
+//         We should not like this because, consider right now count is 3 and sum = 15, but now you found count1 = 4 but sum = 12, in that case sum should be updated to new value but as per the if conition, it doesn't enter the if.
+//         */
+//         if(!root -> left && !root -> right) {
+//             if(count1 > count || (count1 == count && sum > max)) {
+//                 count = count1;
+//                 max = sum;
+//             }
+//             return // not mandatory.
+//         }
+        
+//         // count1 += 1; 
+        
+//         if(root -> left) maxSum(root -> left, sum, count1 + 1);
+//         if(root -> right) maxSum(root -> right, sum, count1 + 1);
+        
+//         return;
+//     }
+    
+//     int sumOfLongRootToLeafPath(Node *root) {
+//         // code here
+//         maxSum(root, 0, 1);
+//         return max;
+//     }
+// };
