@@ -54,7 +54,7 @@ class Solution {
         LNode* slowBack = NULL;
         LNode* slow = head;
         LNode* fast = head;
-        while(fast -> next && fast -> next -> next) {
+        while(fast && fast -> next) {
             slowBack = slow;
             slow = slow -> next;
             fast = fast -> next -> next;
@@ -71,7 +71,10 @@ class Solution {
         
         if(head == mid) t -> left = NULL;
         else t -> left = HelperMain(head);
+
         t -> right = HelperMain(mid -> next);
+
+        
         return t;
     }
     
@@ -136,9 +139,16 @@ class Solution {
     
     TNode *sortedListToBST(LNode *head) {
         // code here
-        if(!head) return NULL;
-        LNode* headNew = mergeSort(head);
+
+        // This is when the linked list is not sorted, so we need to sort it first and then apply the same logic as in the first approach.
+        // if(!head) return NULL;
+        // LNode* headNew = mergeSort(head);
+
+        // return HelperMain(headNew);
         
-        return HelperMain(headNew);
+
+
+        if(!head) return NULL;
+        return HelperMain(head);
     }
 };

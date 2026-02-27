@@ -32,3 +32,32 @@ All the values of preorder are unique.                      */
 
 
 
+class Solution {
+public:
+    int index;
+
+    TreeNode* helper(vector<int> & preorder, int min_val, int max_val) {
+
+        if(index >= preorder.size()) return NULL;
+
+        int val = preorder[index];
+
+        if(val <= min_val || val >= max_val) return NULL;
+
+        TreeNode* node = new TreeNode(val);
+        index++;
+
+        node -> left = helper(preorder, min_val, val);
+        node -> right = helper(preorder, val, max_val);
+
+        return node;
+
+        
+    }
+
+    // PREORDER TRAVERSAL: root -> left -> right
+    // So, in the above helper function, we are first creating the node with the value at current index, then we are calling the left subtree with the range of (min_val, val) and right subtree with the range of (val, max_val). This is because in a BST, all values in the left subtree should be less than the node's value and all values in the right subtree should be greater than the node's value.
+    TreeNode* bstFromPreorder(vector<int>& preorder) {
+        return helper(preorder, INT_MIN, INT_MAX);
+    }
+};

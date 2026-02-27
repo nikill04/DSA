@@ -157,15 +157,12 @@ class Solution {
         // }
         
         // or simply, in a regular way.
-        for(int i = 0; i < vec.size(); i++) {
+        int i = 0;
+        for( ; i < vec.size() - 1; i++) {
             vec[i] -> left = NULL;
-            
-            if(i != vec.size() - 1) {
-                vec[i] -> right = vec[i + 1];
-            } else {
-                vec[i] -> right = NULL;
-            }
+            vec[i] -> right = vec[i + 1];
         }
+        vec[i] -> left = NULL;
         
         // Any of the below return statements is fine.
         return *vec.begin();
