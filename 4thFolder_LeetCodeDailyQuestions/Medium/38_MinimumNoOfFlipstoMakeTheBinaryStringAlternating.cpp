@@ -48,53 +48,94 @@ public:
 
         // 3) What we do is here, we append our original string to our string and we also take another two strings which are possible resultant alternating binary strings for our current appended string. Then we take a window length equal to our original string length. Then we compare this window characters with the two possible target sequences(within respective same window size), we compare as to find the number of alterations requried to match for the below two strings and take the minimum out of it. Then we slide the window for the main string and well as for the two resultant strings and again repeat the operations and finally take minimum possibile alterations value as our answer. The reason why we appended our original string again to the original string because it gives all the possible strings of operating type 1 if we slide(window size = original string length) as disscused in point 1).
 
+        // int n = s.size();
+        // int n1 = 2 * n;
+
+        // s = s + s;
+
+        // string target1;
+        // string target2;
+
+        // for(int i = 0; i < n1; i++) {
+        //     target1 += (i % 2 ? '0' : '1');
+        //     target2 += (i % 2 ? '1' : '0');
+        // }
+
+        // int mini = INT_MAX;
+        // int target1Comp = 0;
+        // int target2Comp = 0;
+
+        // // for(int i = 0; i < n; i++) {
+        // //     if(s[i] != target1[i]) target1Comp++;
+        // //     else target2Comp++;
+        // // }
+        // // mini = min(mini, min(target1Comp, target2Comp));
+
+        // // for(int i = 1; i <= n; i++) {
+        // //     if(s[i - 1] != target1[i - 1]) target1Comp--;
+        // //     else target2Comp--;
+
+        // //     if(s[i + n - 1] != target1[i + n - 1]) target1Comp++;
+        // //     else target2Comp++;
+            
+        // //     // mini = min({mini, target1Comp, target2Comp});
+        // //     mini = min(mini, min(target1Comp, target2Comp));
+        // // }
+
+        // int i = 0; 
+        // int j = 0;
+
+        // while(j < n1) {
+        //     if(s[j] != target1[j]) target1Comp++;
+        //     else target2Comp++;
+
+        //     if(j - i + 1 > n) { // If window becomes greater than the original string size, shrink it from left.
+        //         if(s[i] != target1[i]) target1Comp--;
+        //         else target2Comp--;
+        //         i++;
+        //     }
+
+        //     if(j - i + 1 == n) {
+        //         mini = min(mini, min(target1Comp, target2Comp));
+        //     }
+
+        //     j++;
+        // }
+
+        // return mini;
+
+
         int n = s.size();
         int n1 = 2 * n;
 
-        s = s + s;
+        // s = s + s;  
+        // We don't need to add append the string at last and traverse in a window fashioned manner and check, instead if we just travel in a circular manner i.e., using "% n" we will get the same(you will understand, check below).
 
-        string target1;
-        string target2;
-
-        for(int i = 0; i < n1; i++) {
-            target1 += (i % 2 ? "0" : "1");
-            target2 += (i % 2 ? "1" : "0");
-        }
+        // Also you don't two predefined target strings.
 
         int mini = INT_MAX;
         int target1Comp = 0;
         int target2Comp = 0;
 
-        // for(int i = 0; i < n; i++) {
-        //     if(s[i] != target1[i]) target1Comp++;
-        //     else target2Comp++;
-        // }
-        // mini = min(mini, min(target1Comp, target2Comp));
-
-        // for(int i = 1; i <= n; i++) {
-        //     if(s[i - 1] != target1[i - 1]) target1Comp--;
-        //     else target2Comp--;
-
-        //     if(s[i + n - 1] != target1[i + n - 1]) target1Comp++;
-        //     else target2Comp++;
-            
-        //     mini = min({mini, target1Comp, target2Comp});
-        // }
         int i = 0; 
         int j = 0;
 
         while(j < n1) {
-            if(s[j] != target1[j]) target1Comp++;
+            char expectedCharTarget1_J = (j % 2) ? '0' : '1';
+            // char expectedCharTarget2_J = (j % 2) ? '1' : '0'; // In fact you don't even need this. only one of these two is sufficient
+
+            if(s[j % n] != expectedCharTarget1_J) target1Comp++;
             else target2Comp++;
 
             if(j - i + 1 > n) { // If window becomes greater than the original string size, shrink it from left.
-                if(s[i] != target1[i]) target1Comp--;
+                char expectedCharTarget1_I = (i % 2) ? '0' : '1';
+                if(s[i % n] != expectedCharTarget1_I) target1Comp--;
                 else target2Comp--;
                 i++;
             }
 
             if(j - i + 1 == n) {
-                mini = min({mini, target1Comp, target2Comp});
+                mini = min(mini, min(target1Comp, target2Comp));
             }
 
             j++;
