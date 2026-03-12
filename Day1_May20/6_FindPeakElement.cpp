@@ -1,5 +1,6 @@
 /*
 FIND PEAK ELEMENT
+FOR BETTER UNDERSTANDING -> REFER => https://www.youtube.com/watch?v=kMzJy9es7Hc
 
 A peak element is an element that is strictly greater than its neighbors.
 
@@ -35,6 +36,22 @@ using namespace std;
 class Solution {
 public:
     int findPeakElement(vector<int>& nums) {
+        //     int n = nums.size();
+
+        //     if(n == 1) return 0;
+        //     if(nums[0] > nums[1]) return 0;
+        //     if(nums[n - 1] > nums[n - 2]) return n - 1;
+            
+        //     for(int i = 1; i < n - 1; i++) {
+        //         if(nums[i] < nums[i - 1]) continue;
+        //         if(nums[i] < nums[i + 1]) continue;
+                
+        //         return i;
+        //     }
+            
+        //     return 0;
+
+
         int start = 0;
         int end = nums.size() - 1;
         int mid = start + ((end - start) / 2);

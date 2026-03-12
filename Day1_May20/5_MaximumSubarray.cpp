@@ -1,5 +1,6 @@
 /*
-MAXIMUM SUBARRAY
+MAXIMUM SUBARRAY : https://www.geeksforgeeks.org/problems/kadanes-algorithm-1587115620/1
+=> For Better understanding the concept of Kadane's Algorithm, refer => https://www.geeksforgeeks.org/dsa/largest-sum-contiguous-subarray/
 
 Given an integer array nums, find the subarray with the largest sum, and return its sum.
 
@@ -30,12 +31,29 @@ Constraints:
 
 Follow up: If you have figured out the O(n) solution, try coding another solution using the divide and conquer approach, which is more subtle.  */
 
-#include <bits/stdc++.h>
-using namespace std;
+
+
+
 
 class Solution {
-public:
-    int maxSubArray(vector<int>& nums) {
+  public:
+    int maxSubarraySum(vector<int> &arr) {
+        // Code here
         
+        int n = arr.size();
+        
+        int result = INT_MIN;
+        int maxEnding = 0;
+        
+        for(int i = 0; i < n; i++) {
+            if(maxEnding < 0) 
+                maxEnding = arr[i];
+            else 
+                maxEnding += arr[i];
+                
+            result = max(result, maxEnding);
+        }
+        
+        return result;
     }
 };
