@@ -64,34 +64,68 @@ So no asteroids remain.                                */
 
 
 vector<int> asteroidCollision(vector<int> asteroids) {
- 
-    if(asteroids.size() <= 1) return asteroids;
+// BRUTE FORCE
+//     if(asteroids.size() <= 1) return asteroids;
     
-    while(true) {
+//     while(true) {
+//         bool destroyed = false;
+        
+//         for(int i = 1; i < asteroids.size(); i++) {
+            
+//             if(asteroids[i] < 0 && asteroids[i - 1] > 0) {
+//                 destroyed = true;
+                
+//                 if(abs(asteroids[i]) > abs(asteroids[i - 1])) {
+//                     asteroids.erase(asteroids.begin() + (i - 1));
+//                 }
+//                 else if(abs(asteroids[i]) < abs(asteroids[i - 1])) {
+//                     asteroids.erase(asteroids.begin() + i);
+//                 }    
+//                 else {
+//                     asteroids.erase(asteroids.begin() + i - 1);
+//                     asteroids.erase(asteroids.begin() + i - 1);
+//                 }
+                
+//                 i--;
+//             }    
+//         }
+        
+//         if(!destroyed) break;
+    
+    
+//     }
+    
+//     return asteroids;
+    
+    
+
+// OPTIMAL APPROACH(USING STACK)
+    stack<int> st;
+    
+    for(int a : asteroids) {
         bool destroyed = false;
         
-        for(int i = 1; i < asteroids.size(); i++) {
-            if(asteroids[i] < 0 && asteroids[i - 1] > 0) {
-                destroyed = true;
-                
-                if(abs(asteroids[i]) > abs(asteroids[i - 1])) {
-                    asteroids.erase(asteroids.begin() + (i - 1));
-                }
-                else if(abs(asteroids[i]) < abs(asteroids[i - 1])) {
-                    asteroids.erase(asteroids.begin() + i);
-                }    
-                else {
-                    asteroids.erase(asteroids.begin() + i - 1);
-                    asteroids.erase(asteroids.begin() + i - 1);
-                }
-                
-                i--;
-            }    
+        while(!st.empty() && st.top() > 0 && a < 0) {
+            if(abs(st.top()) < abs(a)) {
+                st.pop();
+                continue;
+            }
+            else if(abs(st.top()) == abs(a)) {
+                st.pop();
+            }
+            
+            destroyed = true;
+            break;
         }
         
-        if(!destroyed) break;
-        
+        if(!destroyed) st.push(a);
     }
     
-    return asteroids;
+    vector<int> ans(st.size());
+    for(int i = st.size() - 1; i >= 0; i--) {
+        ans[i] = st.top();
+        st.pop();
+    }
+    
+    return ans;
 }

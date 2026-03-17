@@ -55,6 +55,47 @@ Sample Output 1
 
 
 
-vector<vector<int>> subsets(vector<int> nums) {
 
+void createSubsets(vector<vector<int>> & answer, vector<int> & nums, int ind, vector<int> vec) {
+    
+    int n = nums.size();
+    
+    if(ind == n) {
+        answer.push_back(vec);
+        return;
+    }
+    
+    createSubsets(answer, nums, ind + 1, vec);
+    
+    vec.push_back(nums[ind]);
+    createSubsets(answer, nums, ind + 1, vec);
+    
+    return;
+}
+
+vector<vector<int>> subsets(vector<int> nums) {
+    int n = nums.size();
+    
+    sort(nums.begin(), nums.end());
+    
+    // For deleting Duplicate elements fromt the given array.
+    for(int i = 0; i < n - 1; i++) {
+        int duplicate = 0;
+        for(int j = i + 1; j < n; j++) {
+            if(nums[j] == nums[i]) duplicate++;
+            else break;
+        }
+        if(duplicate != 0) nums.erase(nums.begin() + i + 1, nums.begin() + i + 1 + duplicate);
+        n = nums.size();
+    }
+    
+    
+    vector<vector<int>> answer;
+    vector<int> vec;
+    
+    createSubsets(answer, nums, 0, vec);
+    
+    sort(answer.begin(), answer.end());
+    
+    return answer;
 }

@@ -69,8 +69,8 @@ class Solution {
         
         for(int i = 0; i <= n; i++) {
             for(int j = 0; j <= sum; j++) {
-                if(i == 0) matrix[i][j] = false;
-                if(j == 0) matrix[i][j] = true;
+                if(i == 0) matrix[i][j] = false; // Because if there are no elements in the array, then we cannot make any sum except 0, so, for all j > 0, matrix[0][j] will be false.
+                if(j == 0) matrix[i][j] = true;  // Because if the sum is 0, then we can always make that sum by taking an empty subset, so, for all i >= 0, matrix[i][0] will be true.
                 
                 else if(i != 0 && j != 0) {
                     if(arr[i - 1] <= j) {
