@@ -34,7 +34,6 @@ class Solution {
     }
     
     int helper1(vector<int> & arr, int & d) {
-        int count1 = 0;
         
         int Range = accumulate(arr.begin(), arr.end(), 0);
         
@@ -58,11 +57,13 @@ class Solution {
         }
         
         for(int j = 0; j <= Range; j++) {
-            if(mat[arr.size()][j] > 0 && 2 * j - Range == d) count1 += mat[arr.size()][j];
-            // First for what SUM(j) values are possible that one's only we are taking. and then for that possible value of one subset, we are checking whether the difference is equal to d(given condition). and then if yes, we are adding not how many possible j values for that difference, but how many possible different paritions i.e., all possibile values at the satisfied j values.
+            if(mat[arr.size()][j] > 0 && 2 * j - Range == d) {
+                return mat[arr.size()][j];
+            }
+            // First for what SUM(j) values are possible that one's only we are taking. and then for that possible value of one subset, we are checking whether the difference is equal to d(given condition). and then if yes, we are adding not how many possible j values for that difference(if present, only one "j" will be there at max), but how many possible different paritions i.e., all possibile values at the satisfied j values.
         }
         
-        return count1;
+        return 0;
     }
     
     

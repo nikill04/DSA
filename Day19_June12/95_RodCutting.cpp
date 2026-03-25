@@ -35,7 +35,7 @@ class Solution {
     
     int helper(const vector<int> &price) {
 
-         int numLengths = price.size();   // total available piece lengths
+        int numLengths = price.size();   // total available piece lengths
         int rodLength = price.size();    // total rod length
         
         int pieceLengths[rodLength]; // Length array, it’s not required (we could use i directly), just for the sake of understanding purpose.

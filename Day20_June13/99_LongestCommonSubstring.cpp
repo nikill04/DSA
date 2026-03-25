@@ -23,7 +23,7 @@ Both strings may contain upper and lower case alphabets.                     */
 
 class Solution {
   public:
-    int longestCommonSubstr(string& s1, string& s2) {
+    int longCommSubstr(string& s1, string& s2) {
         // your code here
         return tabulation(s1, s2);
     }
