@@ -81,3 +81,84 @@ Decoded String = "ABACA"                                 */
 
 
 
+/* 
+The structure of the node is
+
+typedef struct node {
+
+    int freq;
+    char data;
+    node * left;
+    node * right;
+    
+} node;
+
+*/
+
+
+void decode_huff(node * root, string s) {
+    int n = s.length();
+    
+    string ans = "";
+    for(int i = 0; i < n; ) {
+        node* temp = root;
+        
+        while(temp -> left || temp -> right) {
+            if(s[i] == '0') temp = temp -> left;
+            else temp = temp -> right;
+            
+            i++;
+        }
+        
+        ans += temp -> data;
+    }
+    
+    cout << ans << endl;
+}
+
+
+// If they ask to build us a huffman tree, given a character string
+struct Compare {
+    bool operator() (node* left, node* right) {
+        return left -> freq > right -> freq;
+    }
+};
+
+node* createHuffman(string s) {
+    int n = s.size();
+    
+    if(n == 0) return NULL;
+    
+    unordered_map<char, int> ump;
+    for(int i = 0; i < n; i++) {
+        ump[s[i]]++;
+    }
+    
+    priority_queue<node*, vector<node*>, Compare> pq;
+    for(auto i : ump) {
+        node* temp = new node;
+        temp -> freq = i.second;
+        temp -> data = i.first;
+        temp -> left = NULL;
+        temp -> right = NULL;
+        pq.push(temp);
+    }
+    
+    while(pq.size() > 1) {
+        node* temp1 = pq.top();
+        pq.pop();
+        
+        node* temp2 = pq.top();
+        pq.pop();
+        
+        node* temp = new node;
+        temp -> data = '\0';
+        temp -> freq = temp1 -> freq + temp2 -> freq;
+        temp -> left = temp1;
+        temp -> right = temp2;
+        
+        pq.push(temp);
+    }
+    
+    return pq.top();
+}

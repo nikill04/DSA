@@ -47,4 +47,38 @@ Sample Output
 2
 Explanation
 
-Cities c[1], c[2], c[3], and c[4] are suitable for power plants. Each plant will have a range of k = 2. If we build in 2 cities, c[1] and c[4] then all cities will have electricity.*/
+Cities c[1], c[2], c[3], and c[4] are suitable for power plants. Each plant will have a range of k = 2. If we build in 2 cities, c[1] and c[4] then all cities will have electricity.                       */
+
+
+
+
+
+
+int pylons(int k, vector<int> arr) {
+    int n = arr.size();
+    
+    int plants = 0;
+    
+    int i = 0;     // Current city to cover
+    while(i < n) {
+        // Try to place plant as far right as possible
+        int right = min(i + k - 1, n - 1);
+        int left = max(0, i - k + 1);
+        
+        int pos = right;
+        
+        // Move left to find a valid point
+        while(pos >= left && arr[pos] == 0) {
+            pos--;
+        }
+        
+        // If no plant found, impossible
+        if(pos < left) return -1;
+        
+        plants++;
+        
+        i = pos + k;
+    }
+    
+    return plants;
+}

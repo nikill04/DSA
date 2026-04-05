@@ -59,32 +59,28 @@ So the valid start and end pairs are: 1 5 4 6 7 8                               
 
 
 
-vector<vector<int>> consecutiveSequenceSum(int M) { 
+vector<vector<int>> consecutiveSequenceSum(int M) {
+    vector<vector<int>> ans;
     
-    // vector<vector<int>> answer;
+    int start = 1;
+    int end = 2;
+    int currentSum = 3;
     
-    // vector<int> vec(M, 1);
-    // for(int i = 1; i < M; i++) {
-    //     vec[i] = vec[i - 1] + i + 1;
-    // }
+    while(start <= M / 2) {
+        if(currentSum == M) {
+            ans.push_back({start, end});
+            currentSum -= start;
+            start++;
+        }
+        else if(currentSum < M) {
+            end++;
+            currentSum += end;
+        }
+        else {
+            currentSum -= start;
+            start++;
+        }
+    }
     
-    // int i = 0;
-    // int j = M - 1;
-    // for( ; i < j; ) {
-    //     if(vec[j] - vec[i] == M) {
-    //         answer.push_back({i, j});
-    //         i++;
-    //         j--;
-    //     }
-    //     else {
-    //         if(vec[j] - vec[i] < M) {
-    //             j++;
-    //         }
-    //         else {
-    //             i++;
-    //         }
-    //     }
-    // }
-    
-    // return answer;
+    return ans;
 }
